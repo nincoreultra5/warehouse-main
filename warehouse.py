@@ -178,10 +178,10 @@ def stock_in_page():
     for size in KIDS_SIZES:
         current_stock = get_stock(size)
         st.markdown(f'''
-        <div style="flex: 1; min-width: 100px; padding: 10px; margin: 5px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center;">
-            <p style="color:#6b7280;">Current: {current_stock}</p>
-            <p>Size {size}</p>
-            <input type="number" min="0" value="0" style="width: 100%; padding: 8px; border: 2px solid #e5e7eb; border-radius: 6px;" id="kids_in_{size}">
+        <div style="flex: 1; min-width: 80px; max-width: 100px; padding: 8px; margin: 4px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center; font-size: 14px;">
+            <p style="color:#6b7280; margin: 0;">{current_stock}</p>
+            <p style="margin: 0;">{size}</p>
+            <input type="number" min="0" value="0" style="width: 100%; padding: 6px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 14px;" id="kids_in_{size}">
         </div>
         ''', unsafe_allow_html=True)
         kids_quantities[size] = st.number_input("", min_value=0, value=0, step=1, key=f"kids_in_{size}", label_visibility="collapsed")
@@ -199,10 +199,10 @@ def stock_in_page():
     for size in ADULT_SIZES:
         current_stock = get_stock(size)
         st.markdown(f'''
-        <div style="flex: 1; min-width: 100px; padding: 10px; margin: 5px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center;">
-            <p style="color:#6b7280;">Current: {current_stock}</p>
-            <p>Size {size}</p>
-            <input type="number" min="0" value="0" style="width: 100%; padding: 8px; border: 2px solid #e5e7eb; border-radius: 6px;" id="adult_in_{size}">
+        <div style="flex: 1; min-width: 80px; max-width: 100px; padding: 8px; margin: 4px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center; font-size: 14px;">
+            <p style="color:#6b7280; margin: 0;">{current_stock}</p>
+            <p style="margin: 0;">{size}</p>
+            <input type="number" min="0" value="0" style="width: 100%; padding: 6px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 14px;" id="adult_in_{size}">
         </div>
         ''', unsafe_allow_html=True)
         adults_quantities[size] = st.number_input("", min_value=0, value=0, step=1, key=f"adult_in_{size}", label_visibility="collapsed")
@@ -290,10 +290,10 @@ def stock_out_page():
     for size in KIDS_SIZES:
         current_stock = get_stock(size)
         st.markdown(f'''
-        <div style="flex: 1; min-width: 100px; padding: 10px; margin: 5px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center;">
-            <p style="color:#6b7280;">Available: {current_stock}</p>
-            <p>Size {size}</p>
-            <input type="number" min="0" max="{current_stock}" value="0" style="width: 100%; padding: 8px; border: 2px solid #e5e7eb; border-radius: 6px;" id="kids_out_{size}">
+        <div style="flex: 1; min-width: 80px; max-width: 100px; padding: 8px; margin: 4px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center; font-size: 14px;">
+            <p style="color:#6b7280; margin: 0;">{current_stock}</p>
+            <p style="margin: 0;">{size}</p>
+            <input type="number" min="0" max="{current_stock}" value="0" style="width: 100%; padding: 6px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 14px;" id="kids_out_{size}">
         </div>
         ''', unsafe_allow_html=True)
         kids_quantities[size] = st.number_input("", min_value=0, max_value=current_stock, value=0, step=1, key=f"kids_out_{size}", label_visibility="collapsed")
@@ -311,10 +311,10 @@ def stock_out_page():
     for size in ADULT_SIZES:
         current_stock = get_stock(size)
         st.markdown(f'''
-        <div style="flex: 1; min-width: 100px; padding: 10px; margin: 5px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center;">
-            <p style="color:#6b7280;">Available: {current_stock}</p>
-            <p>Size {size}</p>
-            <input type="number" min="0" max="{current_stock}" value="0" style="width: 100%; padding: 8px; border: 2px solid #e5e7eb; border-radius: 6px;" id="adult_out_{size}">
+        <div style="flex: 1; min-width: 80px; max-width: 100px; padding: 8px; margin: 4px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center; font-size: 14px;">
+            <p style="color:#6b7280; margin: 0;">{current_stock}</p>
+            <p style="margin: 0;">{size}</p>
+            <input type="number" min="0" max="{current_stock}" value="0" style="width: 100%; padding: 6px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 14px;" id="adult_out_{size}">
         </div>
         ''', unsafe_allow_html=True)
         adults_quantities[size] = st.number_input("", min_value=0, max_value=current_stock, value=0, step=1, key=f"adult_out_{size}", label_visibility="collapsed")
