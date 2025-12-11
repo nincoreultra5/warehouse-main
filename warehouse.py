@@ -146,15 +146,27 @@ def stock_in_page():
     adults_total = sum([get_stock(size) for size in ADULT_SIZES])
     grand_total = kids_total + adults_total
     
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Kids", f"{kids_total:,}")
-    col2.metric("Adults", f"{adults_total:,}")
-    col3.metric("Total", f"{grand_total:,}")
+    st.markdown(f"""
+    <div style="display: flex; justify-content: space-around; margin: 20px 0; text-align: center;">
+        <div style="flex: 1; padding: 10px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+            <h3 style="color:#dc2626;">Kids</h3>
+            <p style="color:#6b7280;">{kids_total:,}</p>
+        </div>
+        <div style="flex: 1; padding: 10px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+            <h3 style="color:#dc2626;">Adults</h3>
+            <p style="color:#6b7280;">{adults_total:,}</p>
+        </div>
+        <div style="flex: 1; padding: 10px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+            <h3 style="color:#dc2626;">Total</h3>
+            <p style="color:#6b7280;">{grand_total:,}</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Reason input
     reason = st.text_area("Reason (required)", placeholder="e.g., New shipment", key="reason_in")
     
-    # Kids section
+    # Kids section - Horizontal layout for phone
     st.markdown("""
     <div style="text-align:center; padding:20px;">
         <h3 style="color:#dc2626;">Kids</h3>
@@ -162,20 +174,20 @@ def stock_in_page():
     """, unsafe_allow_html=True)
     
     kids_quantities = {}
-    cols = st.columns(4)
-    for idx, size in enumerate(KIDS_SIZES):
-        with cols[idx]:
-            current_stock = get_stock(size)
-            st.markdown(f"<p style='color:#6b7280;'>Current: {current_stock}</p>", unsafe_allow_html=True)
-            kids_quantities[size] = st.number_input(
-                f"Size {size}",
-                min_value=0,
-                value=0,
-                step=1,
-                key=f"kids_in_{size}"
-            )
+    st.markdown('<div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-bottom: 20px;">', unsafe_allow_html=True)
+    for size in KIDS_SIZES:
+        current_stock = get_stock(size)
+        st.markdown(f'''
+        <div style="flex: 1; min-width: 100px; padding: 10px; margin: 5px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center;">
+            <p style="color:#6b7280;">Current: {current_stock}</p>
+            <p>Size {size}</p>
+            <input type="number" min="0" value="0" style="width: 100%; padding: 8px; border: 2px solid #e5e7eb; border-radius: 6px;" id="kids_in_{size}">
+        </div>
+        ''', unsafe_allow_html=True)
+        kids_quantities[size] = st.number_input("", min_value=0, value=0, step=1, key=f"kids_in_{size}", label_visibility="collapsed")
+    st.markdown('</div>', unsafe_allow_html=True)
     
-    # Adults section
+    # Adults section - Horizontal layout for phone
     st.markdown("""
     <div style="text-align:center; padding:20px;">
         <h3 style="color:#dc2626;">Adults</h3>
@@ -183,18 +195,18 @@ def stock_in_page():
     """, unsafe_allow_html=True)
     
     adults_quantities = {}
-    cols = st.columns(4)
-    for idx, size in enumerate(ADULT_SIZES):
-        with cols[idx % 4]:
-            current_stock = get_stock(size)
-            st.markdown(f"<p style='color:#6b7280;'>Current: {current_stock}</p>", unsafe_allow_html=True)
-            adults_quantities[size] = st.number_input(
-                f"Size {size}",
-                min_value=0,
-                value=0,
-                step=1,
-                key=f"adult_in_{size}"
-            )
+    st.markdown('<div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-bottom: 20px;">', unsafe_allow_html=True)
+    for size in ADULT_SIZES:
+        current_stock = get_stock(size)
+        st.markdown(f'''
+        <div style="flex: 1; min-width: 100px; padding: 10px; margin: 5px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center;">
+            <p style="color:#6b7280;">Current: {current_stock}</p>
+            <p>Size {size}</p>
+            <input type="number" min="0" value="0" style="width: 100%; padding: 8px; border: 2px solid #e5e7eb; border-radius: 6px;" id="adult_in_{size}">
+        </div>
+        ''', unsafe_allow_html=True)
+        adults_quantities[size] = st.number_input("", min_value=0, value=0, step=1, key=f"adult_in_{size}", label_visibility="collapsed")
+    st.markdown('</div>', unsafe_allow_html=True)
     
     # Submit button
     if st.button("Submit Stock IN"):
@@ -246,15 +258,27 @@ def stock_out_page():
     adults_total = sum([get_stock(size) for size in ADULT_SIZES])
     grand_total = kids_total + adults_total
     
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Kids", f"{kids_total:,}")
-    col2.metric("Adults", f"{adults_total:,}")
-    col3.metric("Total", f"{grand_total:,}")
+    st.markdown(f"""
+    <div style="display: flex; justify-content: space-around; margin: 20px 0; text-align: center;">
+        <div style="flex: 1; padding: 10px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+            <h3 style="color:#dc2626;">Kids</h3>
+            <p style="color:#6b7280;">{kids_total:,}</p>
+        </div>
+        <div style="flex: 1; padding: 10px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+            <h3 style="color:#dc2626;">Adults</h3>
+            <p style="color:#6b7280;">{adults_total:,}</p>
+        </div>
+        <div style="flex: 1; padding: 10px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+            <h3 style="color:#dc2626;">Total</h3>
+            <p style="color:#6b7280;">{grand_total:,}</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Reason input
     reason = st.text_area("Reason (required)", placeholder="e.g., Sent to Org A", key="reason_out")
     
-    # Kids section
+    # Kids section - Horizontal layout for phone
     st.markdown("""
     <div style="text-align:center; padding:20px;">
         <h3 style="color:#dc2626;">Kids</h3>
@@ -262,21 +286,20 @@ def stock_out_page():
     """, unsafe_allow_html=True)
     
     kids_quantities = {}
-    cols = st.columns(4)
-    for idx, size in enumerate(KIDS_SIZES):
-        with cols[idx]:
-            current_stock = get_stock(size)
-            st.markdown(f"<p style='color:#6b7280;'>Available: {current_stock}</p>", unsafe_allow_html=True)
-            kids_quantities[size] = st.number_input(
-                f"Size {size}",
-                min_value=0,
-                max_value=current_stock,
-                value=0,
-                step=1,
-                key=f"kids_out_{size}"
-            )
+    st.markdown('<div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-bottom: 20px;">', unsafe_allow_html=True)
+    for size in KIDS_SIZES:
+        current_stock = get_stock(size)
+        st.markdown(f'''
+        <div style="flex: 1; min-width: 100px; padding: 10px; margin: 5px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center;">
+            <p style="color:#6b7280;">Available: {current_stock}</p>
+            <p>Size {size}</p>
+            <input type="number" min="0" max="{current_stock}" value="0" style="width: 100%; padding: 8px; border: 2px solid #e5e7eb; border-radius: 6px;" id="kids_out_{size}">
+        </div>
+        ''', unsafe_allow_html=True)
+        kids_quantities[size] = st.number_input("", min_value=0, max_value=current_stock, value=0, step=1, key=f"kids_out_{size}", label_visibility="collapsed")
+    st.markdown('</div>', unsafe_allow_html=True)
     
-    # Adults section
+    # Adults section - Horizontal layout for phone
     st.markdown("""
     <div style="text-align:center; padding:20px;">
         <h3 style="color:#dc2626;">Adults</h3>
@@ -284,19 +307,18 @@ def stock_out_page():
     """, unsafe_allow_html=True)
     
     adults_quantities = {}
-    cols = st.columns(4)
-    for idx, size in enumerate(ADULT_SIZES):
-        with cols[idx % 4]:
-            current_stock = get_stock(size)
-            st.markdown(f"<p style='color:#6b7280;'>Available: {current_stock}</p>", unsafe_allow_html=True)
-            adults_quantities[size] = st.number_input(
-                f"Size {size}",
-                min_value=0,
-                max_value=current_stock,
-                value=0,
-                step=1,
-                key=f"adult_out_{size}"
-            )
+    st.markdown('<div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-bottom: 20px;">', unsafe_allow_html=True)
+    for size in ADULT_SIZES:
+        current_stock = get_stock(size)
+        st.markdown(f'''
+        <div style="flex: 1; min-width: 100px; padding: 10px; margin: 5px; border: 2px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb; text-align: center;">
+            <p style="color:#6b7280;">Available: {current_stock}</p>
+            <p>Size {size}</p>
+            <input type="number" min="0" max="{current_stock}" value="0" style="width: 100%; padding: 8px; border: 2px solid #e5e7eb; border-radius: 6px;" id="adult_out_{size}">
+        </div>
+        ''', unsafe_allow_html=True)
+        adults_quantities[size] = st.number_input("", min_value=0, max_value=current_stock, value=0, step=1, key=f"adult_out_{size}", label_visibility="collapsed")
+    st.markdown('</div>', unsafe_allow_html=True)
     
     # Submit button
     if st.button("Submit Stock OUT"):
